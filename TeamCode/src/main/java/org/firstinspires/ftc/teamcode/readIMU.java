@@ -11,13 +11,12 @@ import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 @TeleOp(name = "LiveReadingOfIMU", group = "Sensor")
 public class readIMU extends LinearOpMode {
     ballbot robot = new ballbot();
-    // We name an IMU class IMU which we will then initialize later.
+    // Using the ballbot class we will create a variable we will use later.
 
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
-        // This calls the IMU of that is located on the expansion/control hub which should be
-        // named IMU.
+        // This runs the init method from ballbot onto robot so the variables are no longer null values
         //Here we declare two  variables
         // that the orientation of the hub is facing upward as shown by the logo and that the direction of the
         // USB port is facing forward.
