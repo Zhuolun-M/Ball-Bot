@@ -12,19 +12,18 @@ import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 @TeleOp(name = "LiveReadingOfIMU", group = "Sensor")
 public class readIMU extends LinearOpMode {
     IMU imu = null;
-    // We declare an IMU class called imu which we will then initialize later.
+    // We name an IMU class IMU which we will then initialize later.
 
     @Override public void runOpMode() throws InterruptedException {
+        // This calls the IMU of that is located on the expansion/control hub which should be
+        // named IMU.
         imu = hardwareMap.get(IMU.class,"imu");
-        // This code up here calls the imu of that is located on the expansion/control hub which should be
-        // called imu.
-
+        //Here we declare two  variables
+        // that the orientation of the hub is facing upward as shown by the logo and that the direction of the
+        // USB port is facing forward.
         RevHubOrientationOnRobot.LogoFacingDirection LD = RevHubOrientationOnRobot.LogoFacingDirection.UP;
         RevHubOrientationOnRobot.UsbFacingDirection UD = RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
         RevHubOrientationOnRobot RO = new RevHubOrientationOnRobot(LD, UD);
-        //Over here we declare and initialize 2 varaibles from the RevHubOrientationOnRobot class to specify
-        // that the orientation of the hub is facing upward as shown by the logo and that the direction of the
-        // USB port is facing forward.
 
         imu.initialize(new IMU.Parameters(RO));
         // Here we initialize the variable imu by using the RO variable
