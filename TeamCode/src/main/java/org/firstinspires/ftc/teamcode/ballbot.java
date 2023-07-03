@@ -27,14 +27,14 @@ public class ballbot {
     public double Kp_2 = 0;
     public double Ki_2 = 0;
     public double Kd_2 = 0;
-    public double prev_error_1 = 0;
+    public double prev_error_2 = 0;
 
     //Motor 3 PID values
     public double Int_Sum_3 = 0;
     public double Kp_3 = 0;
     public double Ki_3 = 0;
     public double Kd_3 = 0;
-    public double prev_error_1 = 0;
+    public double prev_error_3 = 0;
 
 
 
@@ -73,5 +73,6 @@ public class ballbot {
 
         double motor_power = Kp_1 * error + Ki_1 * Int_Sum_1 + Kd_1 * deriv;
 
+        return motor_power;
     }
 }
