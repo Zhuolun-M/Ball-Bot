@@ -8,8 +8,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AngularVelocity;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
-@TeleOp(name = "LiveReadingOfIMU", group = "Sensor")
-public class readIMU extends LinearOpMode {
+@TeleOp(name = "BallBotControl", group = "Sensor")
+public class ballControl extends LinearOpMode {
     ballbot robot = new ballbot();
     // Using the ballbot class we will create a variable we will use later.
 
@@ -47,11 +47,21 @@ public class readIMU extends LinearOpMode {
             // This line will instead contain the Angular Velocities of the change in Yaw, Pitch, and Roll,
             // instead of the values themselves
 
-            if(gamepad1.a){
+            /*if(gamepad1.a){
                 robot.Motor1.setPower(1.0);
             }
             else{
                 robot.Motor1.setPower(0.0);
+            }*/
+            if (gamepad1.a){
+                robot.Motor1.setPower(0.0);
+                robot.Motor2.setPower(0.0);
+                robot.Motor3.setPower(0.0);
+            }
+            else {
+                robot.Motor1.setPower(robot.PIDctrl_1(ori.getPitch(AngleUnit.DEGREES), ori.getRoll(AngleUnit.DEGREES)));
+                robot.Motor2.setPower(robot.PIDctrl_2(ori.getPitch(AngleUnit.DEGREES), ori.getRoll(AngleUnit.DEGREES)));
+                robot.Motor3.setPower(robot.PIDctrl_3(ori.getPitch(AngleUnit.DEGREES), ori.getRoll(AngleUnit.DEGREES)));
             }
 
             telemetry.addData("YAW (Z)", "%.2f Deg.", ori.getYaw(AngleUnit.DEGREES));

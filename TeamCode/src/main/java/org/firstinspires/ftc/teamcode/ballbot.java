@@ -17,23 +17,23 @@ public class ballbot {
 
     //Motor 1 PID values
     public double Int_Sum_1 = 0;
-    public double Kp_1 = 0;
-    public double Ki_1 = 0;
-    public double Kd_1 = 0;
+    public double Kp_1 = 0.5;
+    public double Ki_1 = 0.2;
+    public double Kd_1 = 0.1;
     public double prev_error_1 = 0;
 
     //Motor 2 PID values
     public double Int_Sum_2 = 0;
-    public double Kp_2 = 0;
-    public double Ki_2 = 0;
-    public double Kd_2 = 0;
+    public double Kp_2 = 0.5;
+    public double Ki_2 = 0.2;
+    public double Kd_2 = 0.1;
     public double prev_error_2 = 0;
 
     //Motor 3 PID values
     public double Int_Sum_3 = 0;
-    public double Kp_3 = 0;
-    public double Ki_3 = 0;
-    public double Kd_3 = 0;
+    public double Kp_3 = 0.5;
+    public double Ki_3 = 0.2;
+    public double Kd_3 = 0.1;
     public double prev_error_3 = 0;
 
 
@@ -81,8 +81,8 @@ public class ballbot {
         double p_to_r = Math.abs(error - Math.abs(p))/Math.abs(error-Math.abs(r));
 
         Int_Sum_2 += error*timer.seconds();
-        double deriv = (error - prev_error_1) / timer.seconds();
-        prev_error_1 = error;
+        double deriv = (error - prev_error_2) / timer.seconds();
+        prev_error_2 = error;
 
         double motor_power = Kp_2 * error + Ki_2 * Int_Sum_2 + Kd_2 * deriv;
 
@@ -93,8 +93,8 @@ public class ballbot {
         double p_to_r = Math.abs(error - Math.abs(p))/Math.abs(error-Math.abs(r));
 
         Int_Sum_3 += error*timer.seconds();
-        double deriv = (error - prev_error_1) / timer.seconds();
-        prev_error_1 = error;
+        double deriv = (error - prev_error_3) / timer.seconds();
+        prev_error_3 = error;
 
         double motor_power = Kp_3 * error + Ki_3 * Int_Sum_3 + Kd_3 * deriv;
 
