@@ -75,6 +75,7 @@ public class ballbot {
 
         return motor_power;
     }
+
     public double PIDctrl_2 (double p, double r){
         double error = Math.abs(p) + Math.abs(r);
         double p_to_r = Math.abs(error - Math.abs(p))/Math.abs(error-Math.abs(r));
