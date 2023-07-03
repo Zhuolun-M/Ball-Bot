@@ -12,6 +12,26 @@ public class ballbot {
     public DcMotor Motor3;
     public IMU imu = null;
 
+    //Motor 1 PID values
+    public double Int_Sum_1 = 0;
+    public double Kp_1 = 0;
+    public double Ki_1 = 0;
+    public double Kd_1 = 0;
+
+    //Motor 2 PID values
+    public double Int_Sum_2 = 0;
+    public double Kp_2 = 0;
+    public double Ki_2 = 0;
+    public double Kd_2 = 0;
+
+    //Motor 3 PID values
+    public double Int_Sum_3 = 0;
+    public double Kp_3 = 0;
+    public double Ki_3 = 0;
+    public double Kd_3 = 0;
+
+
+
     HardwareMap map;
 
     public void init(HardwareMap m){
@@ -35,6 +55,9 @@ public class ballbot {
         Motor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Motor3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-    }
 
+    }
+    public double PIDctrl (){
+
+    }
 }
