@@ -56,12 +56,12 @@ public class ballControl extends LinearOpMode {
                 robot.Motor1.setPower(0.0);
             }*/
 
-            if(robot.timer.seconds() > 0.1){
+            /*if(robot.timer.seconds() > 0.1){
                 robot.timer.reset();
                 robot.Int_Sum_1 = 0;
                 robot.Int_Sum_2 = 0;
                 robot.Int_Sum_3 = 0;
-            }
+            }*/
 
             if (gamepad1.a){
                 robot.Motor1.setPower(0.0);
@@ -74,12 +74,15 @@ public class ballControl extends LinearOpMode {
                 robot.Motor3.setPower(robot.PIDctrl_3(ori.getPitch(AngleUnit.RADIANS)/100, ori.getRoll(AngleUnit.RADIANS)/100));
             }
 
-            telemetry.addData("YAW (Z)", "%.2f Deg.", ori.getYaw(AngleUnit.RADIANS));
-            telemetry.addData("PITCH (X)","%.2f Deg.", ori.getPitch(AngleUnit.RADIANS));
-            telemetry.addData("ROLL (Y)", "%.2f Deg.", ori.getRoll(AngleUnit.RADIANS));
+            telemetry.addData("YAW (Z)", "%.2f Rad.", ori.getYaw(AngleUnit.RADIANS));
+            telemetry.addData("PITCH (X)","%.2f Rad.", ori.getPitch(AngleUnit.RADIANS));
+            telemetry.addData("ROLL (Y)", "%.2f Rad.", ori.getRoll(AngleUnit.RADIANS));
             telemetry.addData("YAW (Z) Velocity", "%.2f Deg/Sec", ang.zRotationRate);
             telemetry.addData("PITCH (X) Velocity","%.2f Deg/Sec", ang.xRotationRate);
             telemetry.addData("ROLL (Y) Velocity", "%.2f Deg/Sec", ang.yRotationRate);
+            telemetry.addData("Motor1 Power", "%.2f",robot.Motor1.getPower());
+            telemetry.addData("Motor2 Power", "%.2f",robot.Motor2.getPower());
+            telemetry.addData("Motor3 Power", "%.2f",robot.Motor3.getPower());
             telemetry.update();
             // We will add Data to the telemetry on the values of the Yaw, Pitch, Roll, and their respective angular velocites
             // We will also update all the telemtry at the same time for the driver

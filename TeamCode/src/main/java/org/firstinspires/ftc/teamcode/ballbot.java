@@ -71,6 +71,8 @@ public class ballbot {
         double deriv = (error - prev_error_1) / timer.seconds();
         prev_error_1 = error;
 
+        timer.reset();
+
         double motor_power = Kp_1 * error + Ki_1 * Int_Sum_1 + Kd_1 * deriv;
 
         return motor_power;
@@ -84,6 +86,8 @@ public class ballbot {
         double deriv = (error - prev_error_2) / timer.seconds();
         prev_error_2 = error;
 
+        timer.reset();
+
         double motor_power = Kp_2 * error + Ki_2 * Int_Sum_2 + Kd_2 * deriv;
 
         return motor_power;
@@ -95,6 +99,8 @@ public class ballbot {
         Int_Sum_3 += error*timer.seconds();
         double deriv = (error - prev_error_3) / timer.seconds();
         prev_error_3 = error;
+
+        timer.reset();
 
         double motor_power = Kp_3 * error + Ki_3 * Int_Sum_3 + Kd_3 * deriv;
 
