@@ -64,7 +64,7 @@ public class ballbot {
 
     }
     public double PIDctrl_1 (double p, double r){
-        double error = Math.abs(p) + Math.abs(r);
+        double error = p + r;
         double p_to_r = Math.abs(error - Math.abs(p))/Math.abs(error-Math.abs(r));
 
         Int_Sum_1 += error*timer.seconds();
@@ -77,7 +77,7 @@ public class ballbot {
     }
 
     public double PIDctrl_2 (double p, double r){
-        double error = Math.abs(p) + Math.abs(r);
+        double error = p + r;
         double p_to_r = Math.abs(error - Math.abs(p))/Math.abs(error-Math.abs(r));
 
         Int_Sum_2 += error*timer.seconds();
@@ -89,7 +89,7 @@ public class ballbot {
         return motor_power;
     }
     public double PIDctrl_3 (double p, double r){
-        double error = Math.abs(p) + Math.abs(r);
+        double error = p + r;
         double p_to_r = Math.abs(error - Math.abs(p))/Math.abs(error-Math.abs(r));
 
         Int_Sum_3 += error*timer.seconds();

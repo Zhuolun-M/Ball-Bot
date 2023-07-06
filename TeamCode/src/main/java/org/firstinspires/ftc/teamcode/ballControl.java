@@ -27,6 +27,8 @@ public class ballControl extends LinearOpMode {
         robot.imu.initialize(new IMU.Parameters(RO));
         // Here we initialize the variable imu by using the RO variable
 
+        robot.timer.reset();
+
         waitForStart();
         // We will wait for the drivestation to be activated
 
@@ -53,20 +55,28 @@ public class ballControl extends LinearOpMode {
             else{
                 robot.Motor1.setPower(0.0);
             }*/
+
+            if(robot.timer.seconds() > 0.1){
+                robot.timer.reset();
+                robot.Int_Sum_1 = 0;
+                robot.Int_Sum_2 = 0;
+                robot.Int_Sum_3 = 0;
+            }
+
             if (gamepad1.a){
                 robot.Motor1.setPower(0.0);
                 robot.Motor2.setPower(0.0);
                 robot.Motor3.setPower(0.0);
             }
             else {
-                robot.Motor1.setPower(robot.PIDctrl_1(ori.getPitch(AngleUnit.DEGREES), ori.getRoll(AngleUnit.DEGREES)));
-                robot.Motor2.setPower(robot.PIDctrl_2(ori.getPitch(AngleUnit.DEGREES), ori.getRoll(AngleUnit.DEGREES)));
-                robot.Motor3.setPower(robot.PIDctrl_3(ori.getPitch(AngleUnit.DEGREES), ori.getRoll(AngleUnit.DEGREES)));
+                robot.Motor1.setPower(robot.PIDctrl_1(ori.getPitch(AngleUnit.RADIANS)/100, ori.getRoll(AngleUnit.RADIANS)/100));
+                robot.Motor2.setPower(robot.PIDctrl_2(ori.getPitch(AngleUnit.RADIANS)/100, ori.getRoll(AngleUnit.RADIANS)/100));
+                robot.Motor3.setPower(robot.PIDctrl_3(ori.getPitch(AngleUnit.RADIANS)/100, ori.getRoll(AngleUnit.RADIANS)/100));
             }
 
-            telemetry.addData("YAW (Z)", "%.2f Deg.", ori.getYaw(AngleUnit.DEGREES));
-            telemetry.addData("PITCH (X)","%.2f Deg.", ori.getPitch(AngleUnit.DEGREES));
-            telemetry.addData("ROLL (Y)", "%.2f Deg.", ori.getRoll(AngleUnit.DEGREES));
+            telemetry.addData("YAW (Z)", "%.2f Deg.", ori.getYaw(AngleUnit.RADIANS));
+            telemetry.addData("PITCH (X)","%.2f Deg.", ori.getPitch(AngleUnit.RADIANS));
+            telemetry.addData("ROLL (Y)", "%.2f Deg.", ori.getRoll(AngleUnit.RADIANS));
             telemetry.addData("YAW (Z) Velocity", "%.2f Deg/Sec", ang.zRotationRate);
             telemetry.addData("PITCH (X) Velocity","%.2f Deg/Sec", ang.xRotationRate);
             telemetry.addData("ROLL (Y) Velocity", "%.2f Deg/Sec", ang.yRotationRate);
@@ -74,8 +84,8 @@ public class ballControl extends LinearOpMode {
             // We will add Data to the telemetry on the values of the Yaw, Pitch, Roll, and their respective angular velocites
             // We will also update all the telemtry at the same time for the driver
 
-            sleep(250);
-            // Updates the code every 0.25 seconds
+            sleep(50);
+            // Updates the code every 0.05 seconds
         }
     }
 }
