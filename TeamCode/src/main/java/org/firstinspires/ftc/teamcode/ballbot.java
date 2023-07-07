@@ -15,7 +15,9 @@ public class ballbot {
     public DcMotor Motor3;
     public IMU imu = null;
 
-    ElapsedTime timer = new ElapsedTime();
+    ElapsedTime timer_1 = new ElapsedTime();
+    ElapsedTime timer_2 = new ElapsedTime();
+    ElapsedTime timer_3 = new ElapsedTime();
 
     //Motor 1 PID values
     public double Int_Sum_1 = 0;
@@ -65,43 +67,17 @@ public class ballbot {
 
 
     }
-    public double PIDctrl_1 (double p, double r){
+    public double PIDctrl_1 (double p, double r, double Kp, double Ki, double Kd, double Int_Sum, double prev_error, ElapsedTime timer){
         double error = p + r;
         double p_to_r = Math.abs(error - Math.abs(p))/Math.abs(error-Math.abs(r));
 
-        Int_Sum_1 += error*timer.seconds();
-        double deriv = (error - prev_error_1) / timer.seconds();
-        prev_error_1 = error;
+        Int_Sum += error*timer.seconds();
+        double deriv = (error - prev_error) / timer.seconds();
+        prev_error = error;
         timer.reset();
-        double motor_power = Kp_1 * error + Ki_1 * Int_Sum_1 + Kd_1 * deriv;
+        double motor_power = Kp * error + Ki * Int_Sum + Kd * deriv;
         motor_power = Math.signum(error) * motor_power;
 
-
-        return motor_power;
-    }
-    public double PIDctrl_2 (double p, double r){
-        double error = p + r;
-        double p_to_r = Math.abs(error - Math.abs(p))/Math.abs(error-Math.abs(r));
-
-        Int_Sum_2 += error*timer.seconds();
-        double deriv = (error - prev_error_2) / timer.seconds();
-        prev_error_2 = error;
-        timer.reset();
-        double motor_power = Kp_2 * error + Ki_2 * Int_Sum_2 + Kd_2 * deriv;
-        motor_power = Math.signum(error) * motor_power;
-
-        return motor_power;
-    }
-    public double PIDctrl_3 (double p, double r){
-        double error = p + r;
-        double p_to_r = Math.abs(error - Math.abs(p))/Math.abs(error-Math.abs(r));
-
-        Int_Sum_3 += error*timer.seconds();
-        double deriv = (error - prev_error_3) / timer.seconds();
-        prev_error_3 = error;
-        timer.reset();
-        double motor_power = Kp_3 * error + Ki_3 * Int_Sum_3 + Kd_3 * deriv;
-        motor_power = Math.signum(error) * motor_power;
 
         return motor_power;
     }

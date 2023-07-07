@@ -27,7 +27,9 @@ public class ballControl extends LinearOpMode {
         robot.imu.initialize(new IMU.Parameters(RO));
         // Here we initialize the variable imu by using the RO variable
 
-        robot.timer.reset();
+        robot.timer_1.reset();
+        robot.timer_2.reset();
+        robot.timer_3.reset();
 
         waitForStart();
         // We will wait for the drivestation to be activated
@@ -69,13 +71,9 @@ public class ballControl extends LinearOpMode {
                 robot.Motor3.setPower(0.0);
             }
             else {
-                robot.Motor1.setPower(robot.PIDctrl_1(ori.getPitch(AngleUnit.RADIANS)/100, ori.getRoll(AngleUnit.RADIANS)/100));
-                if (ori.getPitch(AngleUnit.RADIANS) < 0.2 && ori.getRoll(AngleUnit.RADIANS) < 0.2){
-                    robot.Motor1.setPower(0.0);
-                }
-                robot.Motor2.setPower(robot.PIDctrl_2(ori.getPitch(AngleUnit.RADIANS)/100, ori.getRoll(AngleUnit.RADIANS)/100));
-                robot.Motor3.setPower(robot.PIDctrl_3(ori.getPitch(AngleUnit.RADIANS)/100, ori.getRoll(AngleUnit.RADIANS)/100));
-
+                robot.Motor1.setPower(robot.PIDctrl_1(ori.getPitch(AngleUnit.RADIANS)/100, ori.getRoll(AngleUnit.RADIANS)/100, robot.Kp_1, robot.Ki_1, robot.Kd_1, robot.Int_Sum_1, robot.prev_error_1, robot.timer_1));
+                robot.Motor2.setPower(robot.PIDctrl_1(ori.getPitch(AngleUnit.RADIANS)/100, ori.getRoll(AngleUnit.RADIANS)/100, robot.Kp_2, robot.Ki_2, robot.Kd_2, robot.Int_Sum_2, robot.prev_error_2,robot.timer_2));
+                robot.Motor3.setPower(robot.PIDctrl_1(ori.getPitch(AngleUnit.RADIANS)/100, ori.getRoll(AngleUnit.RADIANS)/100, robot.Kp_3, robot.Ki_3, robot.Kd_3,robot.Int_Sum_3, robot.prev_error_3, robot.timer_3));
             }
 
             telemetry.addData("YAW (Z)", "%.2f Rad.", ori.getYaw(AngleUnit.RADIANS));
@@ -93,7 +91,7 @@ public class ballControl extends LinearOpMode {
 
             sleep(50);
             // Updates the code every 0.05 seconds
-            robot.timer.reset();
+            //robot.timer_1.reset();
 
         }
     }
