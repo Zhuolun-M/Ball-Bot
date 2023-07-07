@@ -70,7 +70,7 @@ public class ballbot {
         Int_Sum_1 += error*timer.seconds();
         double deriv = (error - prev_error_1) / timer.seconds();
         prev_error_1 = error;
-
+        timer.reset();
         double motor_power = Kp_1 * error + Ki_1 * Int_Sum_1 + Kd_1 * deriv;
 
         return motor_power;
