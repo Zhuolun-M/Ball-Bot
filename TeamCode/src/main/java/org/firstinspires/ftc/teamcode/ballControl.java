@@ -72,6 +72,7 @@ public class ballControl extends LinearOpMode {
                 robot.Motor1.setPower(robot.PIDctrl_1(ori.getPitch(AngleUnit.RADIANS)/100, ori.getRoll(AngleUnit.RADIANS)/100));
                 robot.Motor2.setPower(robot.PIDctrl_2(ori.getPitch(AngleUnit.RADIANS)/100, ori.getRoll(AngleUnit.RADIANS)/100));
                 robot.Motor3.setPower(robot.PIDctrl_3(ori.getPitch(AngleUnit.RADIANS)/100, ori.getRoll(AngleUnit.RADIANS)/100));
+
             }
 
             telemetry.addData("YAW (Z)", "%.2f Rad.", ori.getYaw(AngleUnit.RADIANS));
@@ -89,6 +90,7 @@ public class ballControl extends LinearOpMode {
 
             sleep(50);
             // Updates the code every 0.05 seconds
+
         }
     }
 }
