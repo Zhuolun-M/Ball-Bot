@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+
 public class ballbot {
     //Declared 3 motors to be used
     public DcMotor Motor1;
@@ -50,7 +52,7 @@ public class ballbot {
         //Sets initial direction of the motors to forward
         Motor3.setDirection(DcMotorSimple.Direction.FORWARD);
         Motor2.setDirection(DcMotorSimple.Direction.FORWARD);
-        Motor1.setDirection(DcMotorSimple.Direction.FORWARD);
+        Motor1.setDirection(DcMotorSimple.Direction.REVERSE);
 
         //Initial power is zero, absence of motion
         Motor1.setPower(0.0);
@@ -72,6 +74,8 @@ public class ballbot {
         prev_error_1 = error;
         timer.reset();
         double motor_power = Kp_1 * error + Ki_1 * Int_Sum_1 + Kd_1 * deriv;
+        motor_power = Math.signum(error) * motor_power;
+
 
         return motor_power;
     }
@@ -84,6 +88,7 @@ public class ballbot {
         prev_error_2 = error;
         timer.reset();
         double motor_power = Kp_2 * error + Ki_2 * Int_Sum_2 + Kd_2 * deriv;
+        motor_power = Math.signum(error) * motor_power;
 
         return motor_power;
     }
@@ -96,6 +101,7 @@ public class ballbot {
         prev_error_3 = error;
         timer.reset();
         double motor_power = Kp_3 * error + Ki_3 * Int_Sum_3 + Kd_3 * deriv;
+        motor_power = Math.signum(error) * motor_power;
 
         return motor_power;
     }
