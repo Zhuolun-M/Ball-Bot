@@ -54,7 +54,7 @@ public class ballbot {
         //Sets initial direction of the motors to forward
         Motor3.setDirection(DcMotorSimple.Direction.FORWARD);
         Motor2.setDirection(DcMotorSimple.Direction.FORWARD);
-        Motor1.setDirection(DcMotorSimple.Direction.REVERSE);
+        Motor1.setDirection(DcMotorSimple.Direction.FORWARD);
 
         //Initial power is zero, absence of motion
         Motor1.setPower(0.0);
@@ -76,7 +76,7 @@ public class ballbot {
         prev_error = error;
         timer.reset();
         double motor_power = Kp * error + Ki * Int_Sum + Kd * deriv;
-        motor_power = Math.signum(error) * motor_power;
+        motor_power = Math.signum(p + r) * motor_power;
 
 
         return motor_power;
