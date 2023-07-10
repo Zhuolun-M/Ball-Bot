@@ -40,6 +40,10 @@ public class ballControl extends LinearOpMode {
 
 
         while(opModeIsActive()){
+
+            double y = -gamepad1.left_stick_y;
+            double x = gamepad1.left_stick_x;
+
             telemetry.addData("Hub orientation", "Logo=%s   USB=%s\n ", LD, UD);
             // This telemetry tells the drive the orientation the Hub is supposed to be in.
 
@@ -75,6 +79,35 @@ public class ballControl extends LinearOpMode {
                 robot.Motor2.setPower(robot.PIDctrl_1(-0.02, 0.02, ori.getPitch(AngleUnit.RADIANS)/100, ori.getRoll(AngleUnit.RADIANS)/100, robot.Kp_2, robot.Ki_2, robot.Kd_2, robot.Int_Sum_2, robot.prev_error_2,robot.timer_2));
                 robot.Motor3.setPower(robot.PIDctrl_1(-0.02, 0.02, ori.getPitch(AngleUnit.RADIANS)/100, ori.getRoll(AngleUnit.RADIANS)/100, robot.Kp_3, robot.Ki_3, robot.Kd_3,robot.Int_Sum_3, robot.prev_error_3, robot.timer_3));
             }
+
+
+            /*
+            if (Math.abs(x) > Math.abs(y)){
+                if (x > 0){
+                    robot.Motor1.setPower(1.0);
+                    robot.Motor2.setPower(-1.0);
+                    robot.Motor3.setPower(robot.PIDctrl_1(-0.02, 0.02, ori.getPitch(AngleUnit.RADIANS)/100, ori.getRoll(AngleUnit.RADIANS)/100, robot.Kp_3, robot.Ki_3, robot.Kd_3,robot.Int_Sum_3, robot.prev_error_3, robot.timer_3));
+                }
+                else{
+                    robot.Motor1.setPower(-1.0);
+                    robot.Motor2.setPower(1.0);
+                    robot.Motor3.setPower(robot.PIDctrl_1(-0.02, 0.02, ori.getPitch(AngleUnit.RADIANS)/100, ori.getRoll(AngleUnit.RADIANS)/100, robot.Kp_3, robot.Ki_3, robot.Kd_3,robot.Int_Sum_3, robot.prev_error_3, robot.timer_3));
+                }
+            }
+            else {
+                if (y > 0){
+                    robot.Motor1.setPower(0.0);
+                    robot.Motor2.setPower(1.0);
+                    robot.Motor3.setPower(-1.0);
+                }
+                else {
+                    robot.Motor1.setPower(0.0);
+                    robot.Motor2.setPower(-1.0);
+                    robot.Motor3.setPower(1.0);
+                }
+            }
+             */
+
 
             telemetry.addData("YAW (Z)", "%.2f Rad.", ori.getYaw(AngleUnit.RADIANS));
             telemetry.addData("PITCH (X)","%.2f Rad.", ori.getPitch(AngleUnit.RADIANS));
