@@ -67,8 +67,8 @@ public class ballbot {
 
 
     }
-    public double PIDctrl_1 (double p, double r, double Kp, double Ki, double Kd, double Int_Sum, double prev_error, ElapsedTime timer){
-        double error = p + r;
+    public double PIDctrl_1 (double tp, double tr, double p, double r, double Kp, double Ki, double Kd, double Int_Sum, double prev_error, ElapsedTime timer){
+        double error = (tp - p) + (tr - r);
         double p_to_r = Math.abs(error - Math.abs(p))/Math.abs(error-Math.abs(r));
 
         Int_Sum += error*timer.seconds();
