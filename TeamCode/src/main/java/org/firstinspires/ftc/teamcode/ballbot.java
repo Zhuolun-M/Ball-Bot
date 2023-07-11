@@ -76,10 +76,9 @@ public class ballbot {
         prev_error = error;
         timer.reset();
         double motor_power = Kp * error + Ki * Int_Sum + Kd * deriv;
-        motor_power = Math.signum(p + r) * motor_power;
-
 
         return motor_power;
     }
+
 
 }
