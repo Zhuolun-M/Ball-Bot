@@ -21,23 +21,23 @@ public class ballbot {
 
     //Motor 1 PID values
     public double Int_Sum_1 = 0;
-    public double Kp_1 = 0.5;
-    public double Ki_1 = 0.2;
-    public double Kd_1 = 0.1;
+    public double Kp_1 = 1.5;
+    public double Ki_1 = 0.0;
+    public double Kd_1 = 0.0;
     public double prev_error_1 = 0;
 
     //Motor 2 PID values
     public double Int_Sum_2 = 0;
-    public double Kp_2 = 0.5;
-    public double Ki_2 = 0.2;
-    public double Kd_2 = 0.1;
+    public double Kp_2 = 1.5;
+    public double Ki_2 = 0.0;
+    public double Kd_2 = 0.0;
     public double prev_error_2 = 0;
 
     //Motor 3 PID values
     public double Int_Sum_3 = 0;
-    public double Kp_3 = 0.5;
-    public double Ki_3 = 0.2;
-    public double Kd_3 = 0.1;
+    public double Kp_3 = 1.5;
+    public double Ki_3 = 0.0;
+    public double Kd_3 = 0.0;
     public double prev_error_3 = 0;
 
 
