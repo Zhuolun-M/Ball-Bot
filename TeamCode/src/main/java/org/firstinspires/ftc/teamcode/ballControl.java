@@ -85,9 +85,9 @@ public class ballControl extends LinearOpMode {
                 robot.Motor3.setPower(0.0);
             }
             else {
-                power_1 = robot.PIDctrl_1(0.0, 0.0 , ori.getPitch(AngleUnit.RADIANS)/(10), ori.getRoll(AngleUnit.RADIANS)/(10), robot.Kp_1, robot.Ki_1, robot.Kd_1, robot.Int_Sum_1, robot.prev_error_1, robot.timer_1);
-                power_2 = robot.PIDctrl(0.0, 0.0, ori.getPitch(AngleUnit.RADIANS)*-0.5/(7), ori.getRoll(AngleUnit.RADIANS)*Math.sqrt(3)/(7), robot.Kp_2, robot.Ki_2, robot.Kd_2, robot.Int_Sum_2, robot.prev_error_2,robot.timer_2);
-                power_3 = robot.PIDctrl(0.0, 0.0, ori.getPitch(AngleUnit.RADIANS)*-0.5/(7), ori.getRoll(AngleUnit.RADIANS)*-Math.sqrt(3)/(7), robot.Kp_3, robot.Ki_3, robot.Kd_3,robot.Int_Sum_3, robot.prev_error_3, robot.timer_3);
+                power_1 = robot.PIDctrl_1(0.0, 0.0 , Math.sin(ori.getPitch(AngleUnit.RADIANS))/1, Math.sin(ori.getRoll(AngleUnit.RADIANS))/1, robot.Kp_1, robot.Ki_1, robot.Kd_1, robot.Int_Sum_1, robot.prev_error_1, robot.timer_1);
+                power_2 = robot.PIDctrl(0.0, 0.0, Math.sin(ori.getPitch(AngleUnit.RADIANS))*-0.5/1, Math.sin(ori.getRoll(AngleUnit.RADIANS))*Math.sqrt(3)/1, robot.Kp_2, robot.Ki_2, robot.Kd_2, robot.Int_Sum_2, robot.prev_error_2,robot.timer_2);
+                power_3 = robot.PIDctrl(0.0, 0.0, Math.sin(ori.getPitch(AngleUnit.RADIANS))*-0.5/1, Math.sin(ori.getRoll(AngleUnit.RADIANS))*-Math.sqrt(3)/1, robot.Kp_3, robot.Ki_3, robot.Kd_3,robot.Int_Sum_3, robot.prev_error_3, robot.timer_3);
 
                 robot.Motor1.setPower(power_1);
                 robot.Motor2.setPower(power_2);
