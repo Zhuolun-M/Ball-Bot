@@ -1,6 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.IMU;
@@ -8,7 +11,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AngularVelocity;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
-@TeleOp(name = "BallBotControl", group = "Sensor")
+@Autonomous(name = "BallBotControl", group = "Sensor")
 public class ballControl extends LinearOpMode {
     ballbot robot = new ballbot();
     // Using the ballbot class we will create a variable we will use later.
@@ -16,20 +19,27 @@ public class ballControl extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
+        FtcDashboard dashboard = FtcDashboard.getInstance();
+        telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
         // This runs the init method from ballbot onto robot so the variables are no longer null values
-        //Here we declare two  variables
-        // that the orientation of the hub is facing upward as shown by the logo and that the direction of the
+        //        //Here we declare two  variables
+        //        // that the orientation of the hub is facing upward as shown by the logo and that the direction of the
         // USB port is facing forward.
         RevHubOrientationOnRobot.LogoFacingDirection LD = RevHubOrientationOnRobot.LogoFacingDirection.UP;
         RevHubOrientationOnRobot.UsbFacingDirection UD = RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
         RevHubOrientationOnRobot RO = new RevHubOrientationOnRobot(LD, UD);
 
         robot.imu.initialize(new IMU.Parameters(RO));
+
         // Here we initialize the variable imu by using the RO variable
 
         robot.timer_1.reset();
         robot.timer_2.reset();
         robot.timer_3.reset();
+
+        double power_1 = 0.0;
+        double power_2 = 0.0;
+        double power_3 = 0.0;
 
         waitForStart();
         // We will wait for the drivestation to be activated
@@ -75,9 +85,13 @@ public class ballControl extends LinearOpMode {
                 robot.Motor3.setPower(0.0);
             }
             else {
-                robot.Motor1.setPower(robot.PIDctrl_1(0.0, 0.0 , ori.getPitch(AngleUnit.RADIANS)/(10), ori.getRoll(AngleUnit.RADIANS)/(10), robot.Kp_1, robot.Ki_1, robot.Kd_1, robot.Int_Sum_1, robot.prev_error_1, robot.timer_1));
-                robot.Motor2.setPower(robot.PIDctrl(0.0, 0.0, ori.getPitch(AngleUnit.RADIANS)*-0.5/(7), ori.getRoll(AngleUnit.RADIANS)*Math.sqrt(3)/(7), robot.Kp_2, robot.Ki_2, robot.Kd_2, robot.Int_Sum_2, robot.prev_error_2,robot.timer_2));
-                robot.Motor3.setPower(robot.PIDctrl(0.0, 0.0, ori.getPitch(AngleUnit.RADIANS)*-0.5/(7), ori.getRoll(AngleUnit.RADIANS)*-Math.sqrt(3)/(7), robot.Kp_3, robot.Ki_3, robot.Kd_3,robot.Int_Sum_3, robot.prev_error_3, robot.timer_3));
+                power_1 = robot.PIDctrl_1(0.0, 0.0 , ori.getPitch(AngleUnit.RADIANS)/(10), ori.getRoll(AngleUnit.RADIANS)/(10), robot.Kp_1, robot.Ki_1, robot.Kd_1, robot.Int_Sum_1, robot.prev_error_1, robot.timer_1);
+                power_2 = robot.PIDctrl(0.0, 0.0, ori.getPitch(AngleUnit.RADIANS)*-0.5/(7), ori.getRoll(AngleUnit.RADIANS)*Math.sqrt(3)/(7), robot.Kp_2, robot.Ki_2, robot.Kd_2, robot.Int_Sum_2, robot.prev_error_2,robot.timer_2);
+                power_3 = robot.PIDctrl(0.0, 0.0, ori.getPitch(AngleUnit.RADIANS)*-0.5/(7), ori.getRoll(AngleUnit.RADIANS)*-Math.sqrt(3)/(7), robot.Kp_3, robot.Ki_3, robot.Kd_3,robot.Int_Sum_3, robot.prev_error_3, robot.timer_3);
+
+                robot.Motor1.setPower(power_1);
+                robot.Motor2.setPower(power_2);
+                robot.Motor3.setPower(power_3);
             }
 
 
@@ -117,14 +131,14 @@ public class ballControl extends LinearOpMode {
             telemetry.addData("YAW (Z) Velocity", "%.2f Rad/Sec", ang.zRotationRate);
             telemetry.addData("PITCH (X) Velocity","%.2f Rad/Sec", ang.xRotationRate);
             telemetry.addData("ROLL (Y) Velocity", "%.2f Rad/Sec", ang.yRotationRate);
-            telemetry.addData("Motor1 Power", "%.2f",robot.Motor1.getPower());
-            telemetry.addData("Motor2 Power", "%.2f",robot.Motor2.getPower());
-            telemetry.addData("Motor3 Power", "%.2f",robot.Motor3.getPower());
+            telemetry.addData("Motor1 Power", "%.2f", power_1);
+            telemetry.addData("Motor2 Power", "%.2f",power_2);
+            telemetry.addData("Motor3 Power", "%.2f",power_3);
             telemetry.update();
             // We will add Data to the telemetry on the values of the Yaw, Pitch, Roll, and their respective angular velocites
             // We will also update all the telemtry at the same time for the driver
 
-            sleep(5);
+            sleep(20);
             // Updates the code every 0.005 seconds
             //robot.timer_1.reset();
 

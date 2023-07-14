@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -15,6 +17,7 @@ public class ballbot {
     public DcMotor Motor2;
     public DcMotor Motor3;
     public IMU imu = null;
+    //public BNO055IMU imu2 = null;
 
     ElapsedTime timer_1 = new ElapsedTime();
     ElapsedTime timer_2 = new ElapsedTime();
@@ -24,21 +27,21 @@ public class ballbot {
     public double Int_Sum_1 = 0;
     public double Kp_1 = 1.7;
     public double Ki_1 = 0.5;
-    public double Kd_1 = 0.0;
+    public double Kd_1 = 0.05;
     public double prev_error_1 = 0;
 
     //Motor 2 PID values
     public double Int_Sum_2 = 0;
     public double Kp_2 = 1.7;
     public double Ki_2 = 0.5;
-    public double Kd_2 = 0.0;
+    public double Kd_2 = 0.05;
     public double prev_error_2 = 0;
 
     //Motor 3 PID values
     public double Int_Sum_3 = 0;
     public double Kp_3 = 1.7;
     public double Ki_3 = 0.5;
-    public double Kd_3 = 0.0;
+    public double Kd_3 = 0.05;
     public double prev_error_3 = 0;
 
 
@@ -62,11 +65,21 @@ public class ballbot {
         Motor2.setPower(0.0);
         Motor3.setPower(0.0);
         //Sets the motors to use encoder values to run the motors for precise adjustment
-        Motor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        Motor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        Motor3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Motor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        Motor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        Motor3.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+        /*
+        BNO055IMU.Parameters parm = new BNO055IMU.Parameters();
+        parm.angleUnit = BNO055IMU.AngleUnit.RADIANS;
+        parm.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parm.calibrationDataFile = "BNO055IMUCalibration.json";
+        parm.loggingEnabled = true;
+        parm.loggingTag = "IMU";
+        parm.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
 
+        imu2.initialize(parm);
+        */
     }
     public double PIDctrl (double tp, double tr, double p, double r, double Kp, double Ki, double Kd, double Int_Sum, double prev_error, ElapsedTime timer){
         double error = (tr - r);
