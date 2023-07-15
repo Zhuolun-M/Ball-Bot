@@ -25,23 +25,23 @@ public class ballbot {
 
     //Motor 1 PID values
     public double Int_Sum_1 = 0;
-    public double Kp_1 = 4.5;
-    public double Ki_1 = 0.0;
-    public double Kd_1 = 0.0;
+    public double Kp_1 = 3.0;
+    public double Ki_1 = 0.9;
+    public double Kd_1 = 0.01;
     public double prev_error_1 = 0;
 
     //Motor 2 PID values
     public double Int_Sum_2 = 0;
-    public double Kp_2 = 4.5;
-    public double Ki_2 = 0.0;
-    public double Kd_2 = 0.0;
+    public double Kp_2 = 3.0;
+    public double Ki_2 = 1.0;
+    public double Kd_2 = 0.01;
     public double prev_error_2 = 0;
 
     //Motor 3 PID values
     public double Int_Sum_3 = 0;
-    public double Kp_3 = 4.5;
-    public double Ki_3 = 0.0;
-    public double Kd_3 = 0.0;
+    public double Kp_3 = 3.0;
+    public double Ki_3 = 1.0;
+    public double Kd_3 = 0.01;
     public double prev_error_3 = 0;
 
     public double a = 0.8;
@@ -63,7 +63,7 @@ public class ballbot {
         //Sets initial direction of the motors to forward
         Motor3.setDirection(DcMotorSimple.Direction.FORWARD);
         Motor2.setDirection(DcMotorSimple.Direction.FORWARD);
-        Motor1.setDirection(DcMotorSimple.Direction.FORWARD);
+        Motor1.setDirection(DcMotorSimple.Direction.REVERSE);
 
         //Initial power is zero, absence of motion
         Motor1.setPower(0.0);
