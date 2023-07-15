@@ -139,7 +139,7 @@ public class ballControl extends LinearOpMode {
             // We will also update all the telemtry at the same time for the driver
 
             sleep(20);
-            // Updates the code every 0.005 seconds
+            // Updates the code every 0.02 seconds
             //robot.timer_1.reset();
 
         }
