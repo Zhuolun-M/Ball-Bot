@@ -25,24 +25,29 @@ public class ballbot {
 
     //Motor 1 PID values
     public double Int_Sum_1 = 0;
-    public double Kp_1 = 1.7;
-    public double Ki_1 = 0.5;
-    public double Kd_1 = 0.05;
+    public double Kp_1 = 4.5;
+    public double Ki_1 = 0.0;
+    public double Kd_1 = 0.0;
     public double prev_error_1 = 0;
 
     //Motor 2 PID values
     public double Int_Sum_2 = 0;
-    public double Kp_2 = 1.7;
-    public double Ki_2 = 0.5;
-    public double Kd_2 = 0.05;
+    public double Kp_2 = 4.5;
+    public double Ki_2 = 0.0;
+    public double Kd_2 = 0.0;
     public double prev_error_2 = 0;
 
     //Motor 3 PID values
     public double Int_Sum_3 = 0;
-    public double Kp_3 = 1.7;
-    public double Ki_3 = 0.5;
-    public double Kd_3 = 0.05;
+    public double Kp_3 = 4.5;
+    public double Ki_3 = 0.0;
+    public double Kd_3 = 0.0;
     public double prev_error_3 = 0;
+
+    public double a = 0.8;
+    public double prevFilter = 0.0;
+    public double currFilter = 0.0;
+    public double max_int_sum = 0.25;
 
 
 
@@ -64,7 +69,7 @@ public class ballbot {
         Motor1.setPower(0.0);
         Motor2.setPower(0.0);
         Motor3.setPower(0.0);
-        //Sets the motors to use encoder values to run the motors for precise adjustment
+        //Sets the motors to without encoders
         Motor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         Motor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         Motor3.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -97,13 +102,23 @@ public class ballbot {
     public double PIDctrl_1 (double tp, double tr, double p, double r, double Kp, double Ki, double Kd, double Int_Sum, double prev_error, ElapsedTime timer){
         double error = (tp - p);
         double p_to_r = Math.abs(error - Math.abs(p))/Math.abs(error-Math.abs(r));
+        double error_change = error - prev_error;
+
+        currFilter = (a * prev_error) + (1-a) * error_change;
+        prevFilter = currFilter;
 
         Int_Sum += error*timer.seconds();
-        double deriv = (error - prev_error) / timer.seconds();
-        prev_error = error;
+        double deriv = currFilter / timer.seconds();
+        if (Int_Sum > max_int_sum){
+            Int_Sum = max_int_sum;
+        }
+        if (Int_Sum < -max_int_sum){
+            Int_Sum = -max_int_sum;
+        }
         timer.reset();
-        double motor_power = Kp * error + Ki * Int_Sum + Kd * deriv;
 
+        double motor_power = Kp * error + Ki * Int_Sum + Kd * deriv;
+        prev_error = error;
         return motor_power;
     }
 
