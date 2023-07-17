@@ -13,6 +13,9 @@ public final class Constants {
     public final static double xyInertia = (0.6667 * BallMass * Ballr * Ballr/3.33);
     public final static double BodyInertia = (0.6667 * 5 * Ballr * Ballr);
     public final static double Bodyr = 0.0866;
+    public final static double theta = 45;
+    public final static double time_interval = 0.01;
+
 
 
 
