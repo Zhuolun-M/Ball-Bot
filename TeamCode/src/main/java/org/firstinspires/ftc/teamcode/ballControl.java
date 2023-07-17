@@ -64,15 +64,16 @@ public class ballControl extends LinearOpMode {
                 robot.Int_Sum_2 = 0;
                 robot.Int_Sum_3 = 0;
             }*/
+            meth = methods.Motor_output(ori.getPitch(AngleUnit.RADIANS), ori.getRoll(AngleUnit.RADIANS), ori.getYaw(AngleUnit.RADIANS), ang.xRotationRate, ang.yRotationRate, ang.zRotationRate);
             if (gamepad1.a){
                 robot.Motor1.setPower(0.0);
                 robot.Motor2.setPower(0.0);
                 robot.Motor3.setPower(0.0);
             }
             else {
-                power_1 = meth[0]*Integer.MAX_VALUE;
-                power_2 = meth[1]*Integer.MAX_VALUE;
-                power_3 = meth[2]* Integer.MAX_VALUE;
+                power_1 = meth[0]/250;
+                power_2 = meth[1]/250;
+                power_3 = meth[2]/250;
                 robot.Motor1.setPower(power_1);
                 robot.Motor2.setPower(power_2);
                 robot.Motor3.setPower(power_3);
