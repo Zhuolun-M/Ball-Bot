@@ -61,9 +61,9 @@ public class ballbot {
         Motor3 = m.get(DcMotor.class, "m3");
         imu = m.get(IMU.class,"imu");
         //Sets initial direction of the motors to forward
-        Motor3.setDirection(DcMotorSimple.Direction.FORWARD);
-        Motor2.setDirection(DcMotorSimple.Direction.FORWARD);
-        Motor1.setDirection(DcMotorSimple.Direction.REVERSE);
+        Motor3.setDirection(DcMotorSimple.Direction.REVERSE);
+        Motor2.setDirection(DcMotorSimple.Direction.REVERSE);
+        Motor1.setDirection(DcMotorSimple.Direction.FORWARD);
 
         //Initial power is zero, absence of motion
         Motor1.setPower(0.0);
