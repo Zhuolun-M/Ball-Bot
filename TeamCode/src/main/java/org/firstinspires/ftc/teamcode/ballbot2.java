@@ -43,7 +43,9 @@ public class ballbot2 {
         double Construction_Matrix[][] = {{0, -0.139, 0.0139}, {0.0121, 0.0070, 0.0139}, {-0.0121, 0.0070, 0.0139}};
         double Construction_2[][] = {{0, 1, 0}, {-1, 0, 0}, {0, 0, -0.008}};
         double Construction_3[][] = {{0, 1, 0}, {-1, 0, 0}, {0, 0, -119}};
-        double Tilt_Matrix[][] = {{Math.cos(pitch), Math.sin(pitch) * Math.sin(roll), -Math.cos(roll) * Math.sin(pitch)}, {0, Math.cos(roll), Math.sin(roll)}, {Math.sin(pitch), -Math.sin(roll) * Math.cos(pitch), Math.cos(pitch) * Math.cos(pitch)}};
+        double Tilt_Matrix[][] = {{Math.cos(pitch), Math.sin(pitch) * Math.sin(roll), -Math.cos(roll) * Math.sin(pitch)},
+                                    {0, Math.cos(roll), Math.sin(roll)},
+                                    {Math.sin(pitch), -Math.sin(roll) * Math.cos(pitch), Math.cos(pitch) * Math.cos(pitch)}};
         double Kinematic_Matrix[][] = multiplyMatrices(Tilt_Matrix, Construction_3, 3, 3, 3);
         double Velocity_Matrix[] = new double[3];
         Velocity_Matrix[0] = Kinematic_Matrix[0][0] * xvelocity + Kinematic_Matrix[0][1] * yvelocity + Kinematic_Matrix[0][2] * zvelocity;
