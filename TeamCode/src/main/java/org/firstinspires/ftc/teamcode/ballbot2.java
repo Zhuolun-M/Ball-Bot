@@ -26,11 +26,13 @@ public class ballbot2 {
         return A;
     }
     ElapsedTime timer_1 = new ElapsedTime();
-    public double[] getVector(double pitch, double roll){
+    public double[] getVector(double pitch, double roll, ElapsedTime timer, double prevx, double prevy){
         double[] vector = new double[3];
-        vector[0] = Math.cos((Math.PI/2) - roll) * Constants.IMUhtBall;
-        vector[1] = Math.cos((Math.PI/2) - pitch) * Constants.IMUhtBall;
-        vector[2] = Math.sqrt(Constants.IMUhtBall) - (Math.sqrt(vector[1]*vector[1] + vector[0]*vector[0]));
+        vector[0] = Math.cos((Math.PI/2) - pitch - prevx) * Constants.IMUhtBall / timer.seconds();
+        vector[1] = Math.cos((Math.PI/2) - roll - prevy) * Constants.IMUhtBall / timer.seconds();
+        vector[2] = Math.sqrt(Constants.IMUhtBall) - (Math.sqrt(vector[1]*vector[1] + vector[0]*vector[0])) / timer.seconds();
+        prevx = pitch;
+        prevy = roll;
         return vector;
     }
     public double[] Motor_output(double pitch, double roll, double yaw, double xvelocity, double yvelocity, double zvelocity) {
@@ -51,6 +53,7 @@ public class ballbot2 {
         Velocity_Matrix[0] = Kinematic_Matrix[0][0] * xvelocity + Kinematic_Matrix[0][1] * yvelocity + Kinematic_Matrix[0][2] * zvelocity;
         Velocity_Matrix[1] = Kinematic_Matrix[1][0] * xvelocity + Kinematic_Matrix[1][1] * yvelocity + Kinematic_Matrix[1][2] * zvelocity;
         Velocity_Matrix[2] = Kinematic_Matrix[2][0] * xvelocity + Kinematic_Matrix[2][1] * yvelocity + Kinematic_Matrix[2][2] * zvelocity;
+
         return Velocity_Matrix;
     }
 }

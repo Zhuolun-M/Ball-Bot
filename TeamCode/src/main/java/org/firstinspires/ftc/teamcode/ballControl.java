@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AngularVelocity;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
@@ -14,6 +16,7 @@ public class ballControl extends LinearOpMode {
     ballbot robot = new ballbot();
     ballbot2 methods = new ballbot2();
     double[] meth = new double[3];
+    double[] methv = new double[3];
     // Using the ballbot class we will create a variable we will use later.
     @Override
     public void runOpMode() throws InterruptedException {
@@ -35,6 +38,9 @@ public class ballControl extends LinearOpMode {
         double power_1 = 0.0;
         double power_2 = 0.0;
         double power_3 = 0.0;
+        ElapsedTime timer = new ElapsedTime();
+        double prevx = 0;
+        double prevy = 0;
         waitForStart();
         // We will wait for the drivestation to be activated
         robot.imu.resetYaw();
@@ -64,7 +70,11 @@ public class ballControl extends LinearOpMode {
                 robot.Int_Sum_2 = 0;
                 robot.Int_Sum_3 = 0;
             }*/
-            meth = methods.Motor_output(ori.getPitch(AngleUnit.RADIANS), ori.getRoll(AngleUnit.RADIANS), ori.getYaw(AngleUnit.RADIANS), ang.xRotationRate, ang.yRotationRate, ang.zRotationRate);
+            if (timer.seconds() > 0.1){
+                timer.reset();
+            }
+            methv = methods.getVector(ori.getPitch(AngleUnit.RADIANS), ori.getRoll(AngleUnit.RADIANS), timer, prevx, prevy);
+            meth = methods.Motor_output(ori.getPitch(AngleUnit.RADIANS), ori.getRoll(AngleUnit.RADIANS), ori.getYaw(AngleUnit.RADIANS), methv[0], methv[1], ang.zRotationRate);
             if (gamepad1.a){
                 robot.Motor1.setPower(0.0);
                 robot.Motor2.setPower(0.0);
