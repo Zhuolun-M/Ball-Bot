@@ -28,11 +28,13 @@ public class ballbot2 {
     ElapsedTime timer_1 = new ElapsedTime();
     public double[] getVector(double pitch, double roll, ElapsedTime timer, double prevx, double prevy){
         double[] vector = new double[3];
-        vector[0] = Math.cos((Math.PI/2) - pitch - prevx) * Constants.IMUhtBall / timer.seconds();
-        vector[1] = Math.cos((Math.PI/2) - roll - prevy) * Constants.IMUhtBall / timer.seconds();
+
+        vector[0] = Math.cos((Math.PI/2) - (pitch - prevx)) * Constants.IMUhtBall / timer.seconds();
+        vector[1] = Math.cos((Math.PI/2) - (roll - prevy)) * Constants.IMUhtBall / timer.seconds();
         vector[2] = Math.sqrt(Constants.IMUhtBall) - (Math.sqrt(vector[1]*vector[1] + vector[0]*vector[0])) / timer.seconds();
         prevx = pitch;
         prevy = roll;
+
         return vector;
     }
     public double[] Motor_output(double pitch, double roll, double yaw, double xvelocity, double yvelocity, double zvelocity) {

@@ -81,9 +81,12 @@ public class ballControl extends LinearOpMode {
                 robot.Motor3.setPower(0.0);
             }
             else {
-                power_1 = meth[0] * 0.05 * robot.PIDctrl(0, 0, ori.getPitch(AngleUnit.RADIANS), ori.getRoll(AngleUnit.RADIANS), robot.Kp_1, robot.Ki_1, robot.Kd_1, robot.Int_Sum_1, robot.prev_error_1, robot.timer_1);
-                power_2 = meth[1] * 0.05 * robot.PIDctrl(0, 0, ori.getPitch(AngleUnit.RADIANS), ori.getRoll(AngleUnit.RADIANS), robot.Kp_2, robot.Ki_2, robot.Kd_2, robot.Int_Sum_2, robot.prev_error_2, robot.timer_2);
-                power_3 = meth[2] * 0.05 * robot.PIDctrl(0, 0, ori.getPitch(AngleUnit.RADIANS), ori.getRoll(AngleUnit.RADIANS), robot.Kp_3, robot.Ki_3, robot.Kd_3, robot.Int_Sum_3, robot.prev_error_3, robot.timer_3);
+                power_1 = meth[0] * 0.05;
+                        //* robot.PIDctrl(0, 0, ori.getPitch(AngleUnit.RADIANS), ori.getRoll(AngleUnit.RADIANS), robot.Kp_1, robot.Ki_1, robot.Kd_1, robot.Int_Sum_1, robot.prev_error_1, robot.timer_1);
+                power_2 = meth[1] * 0.05;
+                //* robot.PIDctrl(0, 0, ori.getPitch(AngleUnit.RADIANS), ori.getRoll(AngleUnit.RADIANS), robot.Kp_2, robot.Ki_2, robot.Kd_2, robot.Int_Sum_2, robot.prev_error_2, robot.timer_2);
+                power_3 = meth[2] * 0.05;
+                //* robot.PIDctrl(0, 0, ori.getPitch(AngleUnit.RADIANS), ori.getRoll(AngleUnit.RADIANS), robot.Kp_3, robot.Ki_3, robot.Kd_3, robot.Int_Sum_3, robot.prev_error_3, robot.timer_3);
                 robot.Motor1.setPower(power_1);
                 robot.Motor2.setPower(power_2);
                 robot.Motor3.setPower(power_3);
