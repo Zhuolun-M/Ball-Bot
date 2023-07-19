@@ -13,7 +13,7 @@ public class Balancebot {
     public IMU imu;
     ElapsedTime time1 = new ElapsedTime();
 
-    public double Kp = 0.0;
+    public double Kp = 8.0;
     public double Ki = 0.0;
     public double Kd = 0.0;
     public double Int_sum = 0.0;
@@ -27,8 +27,8 @@ public class Balancebot {
         RightMotor = m.get(DcMotor.class,"rg");
         imu = m.get(IMU.class, "imu");
 
-        LeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        RightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        LeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        RightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         LeftMotor.setPower(0.0);
         RightMotor.setPower(0.0);

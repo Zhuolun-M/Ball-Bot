@@ -50,6 +50,12 @@ public class BalancebotControl extends LinearOpMode{
                 robot.LeftMotor.setPower(power);
                 robot.RightMotor.setPower(power);
             }
+            if (power > 1.0){
+                power = 1.0;
+            }
+            else if (power < -1.0){
+                power = -1.0;
+            }
 
             telemetry.addData("YAW (Z)", "%.2f Rad.", ori.getYaw(AngleUnit.RADIANS));
             telemetry.addData("PITCH (X)","%.2f Rad.", ori.getPitch(AngleUnit.RADIANS));
