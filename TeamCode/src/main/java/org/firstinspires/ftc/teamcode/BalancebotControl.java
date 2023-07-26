@@ -28,6 +28,7 @@ public class BalancebotControl extends LinearOpMode{
 
         robot.time1.reset();
         double power = 0.0;
+        double setPoint = -0.0;
 
         robot.imu.resetYaw();
 
@@ -41,12 +42,12 @@ public class BalancebotControl extends LinearOpMode{
             YawPitchRollAngles ori = robot.imu.getRobotYawPitchRollAngles();
             AngularVelocity ang = robot.imu.getRobotAngularVelocity(AngleUnit.RADIANS);
 
-            if (gamepad1.a){
+            if (Math.abs(ori.getPitch(AngleUnit.DEGREES)) > 45){
                 robot.LeftMotor.setPower(0.0);
                 robot.RightMotor.setPower(0.0);
             }
             else {
-                power = robot.PID_Ctrl(0.0, ori.getPitch(AngleUnit.RADIANS));
+                power = robot.PID_Ctrl(setPoint, ori.getPitch(AngleUnit.RADIANS)) + Math.abs(robot.Kf * Math.sin(ori.getPitch(AngleUnit.RADIANS)));
                 robot.LeftMotor.setPower(power);
                 robot.RightMotor.setPower(power);
             }
@@ -58,15 +59,12 @@ public class BalancebotControl extends LinearOpMode{
             }
 
             telemetry.addData("YAW (Z)", "%.2f Rad.", ori.getYaw(AngleUnit.RADIANS));
-            telemetry.addData("PITCH (X)","%.2f Rad.", ori.getPitch(AngleUnit.RADIANS));
-            telemetry.addData("ROLL (Y)", "%.2f Rad.", ori.getRoll(AngleUnit.RADIANS));
-            telemetry.addData("YAW (Z) Velocity", "%.2f Rad/Sec", ang.zRotationRate);
+            telemetry.addData("PITCH (X)","%.2f Deg.", ori.getPitch(AngleUnit.DEGREES));
             telemetry.addData("PITCH (X) Velocity","%.2f Rad/Sec", ang.xRotationRate);
-            telemetry.addData("ROLL (Y) Velocity", "%.2f Rad/Sec", ang.yRotationRate);
+            telemetry.addData("setPoint", "%.2f", setPoint);
             telemetry.addData("Motor Power", "%.2f", power);
             telemetry.update();
 
-            sleep(20);
         }
     }
 }

@@ -12,10 +12,14 @@ public class Balancebot {
     public DcMotor RightMotor;
     public IMU imu;
     ElapsedTime time1 = new ElapsedTime();
-
-    public double Kp = 8.0;
-    public double Ki = 0.0;
-    public double Kd = 0.0;
+//2.75, 2.416, 1.5, 2.5, 3.0, 2.85, 2.8, 2.6, 2.55, 2.65, 2.4, 2.5, 2.3, 2.45, 2.3
+    public double Kp = 2.75;
+    // try 2.35 tomorrow
+    public double Ki = 5.95;
+    //4.55, 0.28, 0.2, 0.26, 0.25, 0.255, 5.75
+    public double Kd = 0.1055;
+    //0.0635, 0.775, 0.0995
+    public double Kf = 0.75;
     public double Int_sum = 0.0;
     public double prev_error = 0.0;
 
@@ -41,8 +45,8 @@ public class Balancebot {
     public double PID_Ctrl(double tp, double p){
         double error = (tp - p);
 
-        Int_sum += error*time1.seconds();
-        double deriv = (error - prev_error) / time1.seconds();
+        Int_sum += error * time1.seconds();
+        double deriv = (error - prev_error)/time1.seconds();
         prev_error = error;
         time1.reset();
 
