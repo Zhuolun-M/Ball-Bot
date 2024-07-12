@@ -15,6 +15,7 @@ public final class Constants {
     public final static double Bodyr = 0.0866;
     public final static double theta = 45;
     public final static double time_interval = 0.01;
+    public final static int ticksperrev = 2786;
 
 
 

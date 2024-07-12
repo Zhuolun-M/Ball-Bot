@@ -37,8 +37,8 @@ public class Balancebot {
         LeftMotor.setPower(0.0);
         RightMotor.setPower(0.0);
 
-        LeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        RightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        LeftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        RightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
     }
 
